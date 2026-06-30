@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANS Technology | Systems & Cyber Security Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050c18;
+            --bg-card: #0a1628;
+            --bg-elevated: #0e1e38;
+            --blue: #3b82f6;
+            --blue-dim: rgba(59,130,246,0.12);
+            --blue-border: rgba(59,130,246,0.22);
+            --green: #22d3a0;
+            --text: rgba(255,255,255,0.92);
+            --muted: rgba(255,255,255,0.48);
+            --subtle: rgba(255,255,255,0.08);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* ── Grid background ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(5,12,24,0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--blue-border);
+            padding: 0 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--blue); }
+
+        nav { display: flex; gap: 4px; }
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 7px 14px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        nav a:hover { color: #fff; background: var(--subtle); }
+
+        /* ── HAMBURGER (mobile) ── */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 100px 6% 90px;
+            max-width: 860px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 24px;
+        }
+        .eyebrow::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--blue);
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .hero h1 em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .hero p {
+            font-size: clamp(15px, 2vw, 17px);
+            color: var(--muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+
+        .btn-primary {
+            background: var(--blue);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid var(--blue-border);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-outline:hover { border-color: var(--blue); color: #fff; }
+
+        /* Status widget */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--blue-border);
+            padding: 14px 20px;
+            border-radius: 10px;
+        }
+        .pulse {
+            width: 10px; height: 10px;
+            background: var(--green);
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 0 rgba(34,211,160,0.6);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(34,211,160,0.6); }
+            70%  { box-shadow: 0 0 0 8px rgba(34,211,160,0); }
+            100% { box-shadow: 0 0 0 0 rgba(34,211,160,0); }
+        }
+        .status-text strong { font-size: 14px; color: #fff; display: block; }
+        .status-text span { font-size: 12px; color: var(--muted); }
+
+        /* ── SECTION BASE ── */
+        section { position: relative; z-index: 1; padding: 80px 6%; }
+        .alt-bg { background: rgba(10,22,40,0.6); }
+
+        .sec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .sec-title {
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 48px;
+            color: #fff;
+        }
+
+        /* ── PROJECTS ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--blue-border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .project-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+        .project-card:hover::before { opacity: 1; }
+
+        .project-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--subtle);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .project-card h4 {
+            font-size: 11px;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            margin: 18px 0 8px;
+        }
+        .project-card p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.7; }
+        .project-card ul { margin-left: 18px; }
+        .project-card li { font-size: 13.5px; color: rgba(255,255,255,0.65); margin-bottom: 8px; line-height: 1.6; }
+        .project-card li strong { color: rgba(255,255,255,0.85); }
+
+        /* ── BLOGS ── */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+            gap: 20px;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--blue-border);
+            border-radius: 10px;
+            padding: 22px;
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .blog-card:hover { border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+
+        .blog-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--blue);
+            background: var(--blue-dim);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+        .blog-card h3 { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
+        .blog-card p { font-size: 13px; color: var(--muted); flex-grow: 1; line-height: 1.6; margin-bottom: 16px; }
+
+        .blog-link {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--blue);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
+            transition: gap 0.2s;
+        }
+        .blog-link:hover { gap: 8px; }
+
+        /* ── CONTACT ── */
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--blue-border);
+            border-radius: 16px;
+            padding: 44px;
+        }
+        .contact-info h3 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; }
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .contact-line .icon { font-size: 16px; }
+
+        .contact-form { display: flex; flex-direction: column; gap: 14px; }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--blue-border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            resize: vertical;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus { border-color: var(--blue); outline: none; }
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder { color: var(--muted); }
+
+        /* ── MODAL ── */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4,9,17,0.88);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+        .modal.open { display: flex; }
+
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid var(--blue-border);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 720px;
+            max-height: 88vh;
+            overflow-y: auto;
+            animation: slideUp 0.25s ease;
+        }
+        @keyframes slideUp {
+            from { opacity:0; transform: translateY(16px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+
+        .modal-head {
+            position: sticky;
+            top: 0;
+            background: var(--bg-card);
+            padding: 20px 28px;
+            border-bottom: 1px solid var(--blue-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .modal-head h2 { font-size: 18px; color: #fff; }
+        .modal-close {
+            background: var(--subtle);
+            border: none;
+            color: var(--muted);
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: rgba(59,130,246,0.2); color: #fff; }
+
+        .modal-body { padding: 28px; line-height: 1.8; }
+        .modal-body h3 {
+            color: #fff;
+            font-size: 17px;
+            margin: 24px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--subtle);
+        }
+        .modal-body h3:first-child { margin-top: 0; }
+        .modal-body h4 { color: var(--blue); font-size: 14px; margin: 18px 0 8px; }
+        .modal-body p  { font-size: 14px; color: rgba(255,255,255,0.78); margin-bottom: 14px; text-align: justify; }
+        .modal-body ul { margin-left: 20px; margin-bottom: 14px; }
+        .modal-body li { font-size: 13.5px; color: rgba(255,255,255,0.68); margin-bottom: 6px; }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--subtle);
+            text-align: center;
+            padding: 28px 6%;
+            font-size: 13px;
+            color: var(--muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            header { padding: 0 5%; }
+            nav { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(5,12,24,0.98); border-bottom: 1px solid var(--blue-border); padding: 16px 5%; gap: 4px; }
+            nav.open { display: flex; }
+            nav a { padding: 10px 12px; }
+            .menu-toggle { display: flex; }
+
+            .hero { padding: 70px 5% 60px; }
+            section { padding: 60px 5%; }
+
+            .contact-wrap {
+                grid-template-columns: 1fr;
+                padding: 28px 20px;
+            }
+            .projects-grid { gap: 16px; }
+            .blog-grid { gap: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 28px; }
+            .btn-row { gap: 10px; }
+            .btn-primary, .btn-outline { padding: 11px 22px; font-size: 13px; }
+            .modal-body { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+    <a href="#home" class="logo">ANS<span>.</span>TECH</a>
+
+    <nav id="main-nav">
+        <a href="#home" onclick="closeMenu()">होम</a>
+        <a href="#projects" onclick="closeMenu()">प्रोजेक्ट्स</a>
+        <a href="#blogs" onclick="closeMenu()">ब्लॉग्स</a>
+        <a href="#contact" onclick="closeMenu()">संपर्क</a>
+    </nav>
+
+    <div class="menu-toggle" id="menuBtn" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </div>
+</header>
+
+<!-- ── HERO ── -->
+<section id="home" class="hero">
+    <div class="eyebrow">Systems & Cyber Security Portfolio</div>
+    <h1>IT Infrastructure &amp;<br><em>Cyber Security Specialist</em></h1>
+    <p>८+ वर्षांपेक्षा जास्त आयटी इन्फ्रास्ट्रक्चर मॅनेजमेंट, नेटवर्क रिस्ट्रक्चरिंग आणि सिक्युरिटी ऑडिट्सचा (VAPT) अनुभव.</p>
+
+    <div class="btn-row">
+        <a href="#projects" class="btn-primary">माझे प्रोजेक्ट्स पहा</a>
+        <a href="#contact" class="btn-outline">संपर्क करा</a>
+    </div>
+
+    <div class="status-pill">
+        <div class="pulse"></div>
+        <div class="status-text">
+            <strong>Hybrid VAPT Testing Lab: ACTIVE</strong>
+            <span>Kali Linux वर रिअल-टाइम सुरक्षा टेस्टिंग सुरू आहे.</span>
+        </div>
+    </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects" class="alt-bg">
+    <span class="sec-label">My Technical Solutions</span>
+    <h2 class="sec-title">विकसित केलेले प्रमुख तांत्रिक प्रोजेक्ट्स</h2>
+
+    <div class="projects-grid">
+
+        <div class="project-card">
+            <h3>🎛️ IT Asset Management Automation System</h3>
+            <h4>हे नक्की काय आहे?</h4>
+            <p>कंपन्यांमध्ये सर्व हार्डवेअर आणि सॉफ्टवेअर परवान्यांची नोंदणी एक्सेलवर मॅन्युअली केली जाते — चुका होण्याची शक्यता जास्त. हे <strong>लो-कोड ऑटोमेशन टूल</strong> संपूर्ण Lifecycle एकाच ठिकाणी व्यवस्थापित करते.</p>
+            <h4>संस्थेला फायदे</h4>
+            <ul>
+                <li><strong>१००% अचूक मालमत्ता ट्रॅकिंग:</strong> कोणता लॅपटॉप कोणाकडे आहे ते तात्काळ कळते.</li>
+                <li><strong>खर्चात बचत:</strong> न वापरलेले परवाने आणि पडून असलेले हार्डवेअर सहज ओळखता येते.</li>
+                <li><strong>ऑडिट सोपे:</strong> IT ऑडिटच्या वेळी अचूक रिपोर्ट एका क्लिकवर मिळतो.</li>
+            </ul>
+        </div>
+
+        <div class="project-card">
+            <h3>🛡️ VulnDash: Vulnerability Assessment Dashboard</h3>
+            <h4>हे नक्की काय आहे?</h4>
+            <p><strong>VulnDash</strong> हे मध्यवर्ती सुरक्षा डॅशबोर्ड आहे जे नेटवर्कमधील सुरक्षा त्रुटी स्कॅन करून गंभीरतेनुसार (Critical / High / Medium / Low) वर्गीकृत डेटा ग्राफिकल स्वरूपात मांडते.</p>
+            <h4>संस्थेला फायदे</h4>
+            <ul>
+                <li><strong>हल्ले होण्यापूर्वीच सुरक्षा:</strong> लूपहोल आधीच शोधून डेटा लीक रोखता येतो.</li>
+                <li><strong>वेगवान निर्णय:</strong> नेटवर्कच्या Security Posture चा रिअल-टाइम अंदाज येतो.</li>
+                <li><strong>स्वतंत्र ऑडिट:</strong> महागड्या बाह्य सुरक्षा ऑडिटशिवाय अंतर्गत Health Check.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── BLOGS ── -->
+<section id="blogs">
+    <span class="sec-label">Tech Insights</span>
+    <h2 class="sec-title">तांत्रिक व माहितीपूर्ण लेख</h2>
+
+    <div class="blog-grid">
+
+        <div class="blog-card" onclick="openBlog(1)">
+            <div class="blog-tag">Cyber Security</div>
+            <h3>सायबरसिक्युरिटी संपूर्ण माहिती</h3>
+            <p>डिजिटल जगात सायबर सुरक्षा का महत्त्वाची आहे आणि ती सोप्या भाषेत कशी समजून घ्यावी.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(2)">
+            <div class="blog-tag">Cyber Security</div>
+            <h3>Firewall, IPS आणि IDS मधील फरक</h3>
+            <p>नेटवर्क सुरक्षेसाठी Firewall, IPS आणि IDS ची भूमिका आणि त्यांच्यातील मुख्य फरक.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(3)">
+            <div class="blog-tag">Cyber Security</div>
+            <h3>डिजिटल युगातील सायबर धोके</h3>
+            <p>आधुनिक सायबर हल्ले, मालवेअर आणि व्यवसायाचा डेटा सुरक्षित ठेवण्याचे मार्ग.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(4)">
+            <div class="blog-tag">Networking</div>
+            <h3>नेटवर्किंग संपूर्ण माहिती</h3>
+            <p>संगणक एकमेकांशी संवाद कसा साधतात? नेटवर्किंगचे मूलभूत प्रकार सोप्या मराठीत.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(5)">
+            <div class="blog-tag">Artificial Intelligence</div>
+            <h3>ChatGPT म्हणजे काय?</h3>
+            <p>AI चे प्रगत साधन ChatGPT काय आहे आणि त्याचे व्यावहारिक उपयोग कोणते.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(6)">
+            <div class="blog-tag">Hardware</div>
+            <h3>संगणक हार्डवेअरचे मूलभूत घटक</h3>
+            <p>Processor, Motherboard, RAM, GPU आणि BIOS यांचे अचूक कार्य आणि महत्त्व.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(7)">
+            <div class="blog-tag">Hardware</div>
+            <h3>संगणकाचा मेंदू: प्रोसेसर</h3>
+            <p>Processor कसा काम करतो? विविध कामांसाठी योग्य Processor कसा निवडावा.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(8)">
+            <div class="blog-tag">Hardware</div>
+            <h3>RAM म्हणजे काय?</h3>
+            <p>Random Access Memory चे कार्य काय असते आणि सिस्टीम सुरळीत चालण्यासाठी ती का गरजेची आहे.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(9)">
+            <div class="blog-tag">Hardware Storage</div>
+            <h3>HDD आणि SSD मधील फरक</h3>
+            <p>HDD आणि SSD यांच्या कार्यप्रणालीमधील फरक, Speed आणि Performance तुलना.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(10)">
+            <div class="blog-tag">Hardware Firmware</div>
+            <h3>BIOS आणि UEFI मार्गदर्शन</h3>
+            <p>Legacy BIOS आणि आधुनिक UEFI Firmware म्हणजे काय आणि Booting मध्ये त्यांची भूमिका.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(11)">
+            <div class="blog-tag">Hardware Graphics</div>
+            <h3>Graphics Card म्हणजे काय?</h3>
+            <p>GPU चे मुख्य प्रकार कोणते आणि Editing किंवा Rendering साठी योग्य निवड कशी करावी.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(12)">
+            <div class="blog-tag">Hardware Electronics</div>
+            <h3>SMPS म्हणजे काय?</h3>
+            <p>Switched-Mode Power Supply Motherboard आणि इतर घटकांना सुरक्षित Voltage कसा पुरवतो.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(13)">
+            <div class="blog-tag">IT Support</div>
+            <h3>संगणक दुरुस्ती Step-by-Step</h3>
+            <p>Computer Hang होणे किंवा सुरू न होणे अशा सामान्य समस्या स्वतः कशा सोडवाव्यात.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(14)">
+            <div class="blog-tag">Programming</div>
+            <h3>प्रोग्रामिंग म्हणजे काय?</h3>
+            <p>Coding किंवा Programming म्हणजे नक्की काय? Computer ला Commands देऊन Software कसे तयार केले जाते.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(15)">
+            <div class="blog-tag">Fundamentals</div>
+            <h3>कम्प्युटर आणि मनुष्य संवाद</h3>
+            <p>Machine Language आणि Human Language यांच्यातील दुवा आणि Operating System चे मुख्य कार्य.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(16)">
+            <div class="blog-tag">Fundamentals</div>
+            <h3>Software आणि Hardware काय आहे?</h3>
+            <p>भौतिक घटकांचे अदृश्य Programs शी असलेले नाते सोप्या शब्दांत स्पष्ट करणारे स्पष्टीकरण.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(17)">
+            <div class="blog-tag">Fundamentals</div>
+            <h3>संगणकाची मूलभूत माहिती</h3>
+            <p>संगणकाचा शोध, त्याचा इतिहास आणि आधुनिक मानवी जीवनात त्याने घेतलेले महत्त्वाचे स्थान.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+        <div class="blog-card" onclick="openBlog(18)">
+            <div class="blog-tag">Community</div>
+            <h3>ANS मंचावर आपले स्वागत</h3>
+            <p>ANS Technology च्या Community Platform वर आपले स्वागत! तंत्रज्ञानाच्या प्रवाहात एकत्र जोडूया.</p>
+            <button class="blog-link">वाचा संपूर्ण लेख →</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="alt-bg">
+    <span class="sec-label">Get In Touch</span>
+    <h2 class="sec-title">संपर्क साधा</h2>
+
+    <div class="contact-wrap">
+        <div class="contact-info">
+            <h3>ANS Technology</h3>
+            <div class="contact-line"><span class="icon">📧</span> ans.saurabhpatil@gmail.com</div>
+            <div class="contact-line"><span class="icon">🔗</span> linkedin.com/in/anssaurabhpatil</div>
+            <div class="contact-line"><span class="icon">📍</span> मुंबई, महाराष्ट्र</div>
+        </div>
+
+        <div class="contact-form">
+            <input type="text" placeholder="तुमचे नाव">
+            <input type="email" placeholder="तुमचा ई-मेल">
+            <textarea rows="4" placeholder="तुमचा संदेश"></textarea>
+            <button class="btn-primary" style="width:fit-content" onclick="alert('संदेश पाठवला! 🎉')">संदेश पाठवा</button>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    © 2025 ANS Technology — Saurabh Patil · मुंबई, महाराष्ट्र
+</footer>
+
+<!-- ── MODAL ── -->
+<div class="modal" id="blogModal" onclick="handleModalClick(event)">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h2 id="modalTitle">लेख</h2>
+            <button class="modal-close" onclick="closeBlog()">✕</button>
+        </div>
+        <div class="modal-body" id="modalContent"></div>
+    </div>
+</div>
+
+<script>
+// ── Mobile menu ──
+function toggleMenu() {
+    document.getElementById('main-nav').classList.toggle('open');
+}
+function closeMenu() {
+    document.getElementById('main-nav').classList.remove('open');
+}
+
+// ── Modal ──
+function handleModalClick(e) {
+    if (e.target === document.getElementById('blogModal')) closeBlog();
+}
+
+function closeBlog() {
+    document.getElementById('blogModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+const blogs = {
+    1: {
+        title: "सायबरसिक्युरिटी संपूर्ण माहिती",
+        content: `
+            <h3>सायबरसिक्युरिटी म्हणजे काय?</h3>
+            <p>सायबरसिक्युरिटी म्हणजे संगणक प्रणाली, नेटवर्क, प्रोग्राम्स आणि डेटाचे डिजिटल हल्ल्यांपासून संरक्षण करण्याची प्रक्रिया. आजच्या डिजिटल युगात जवळजवळ प्रत्येक व्यवसाय, सरकारी संस्था आणि व्यक्ती इंटरनेटवर अवलंबून आहे. त्यामुळे सायबर सुरक्षा ही एक अत्यंत महत्त्वाची गरज बनली आहे.</p>
+            <h3>सायबरसिक्युरिटीचे मुख्य प्रकार</h3>
+            <h4>१. Network Security</h4>
+            <p>नेटवर्कमध्ये येणाऱ्या व जाणाऱ्या डेटाचे संरक्षण. Firewall, IDS, IPS यांचा यात समावेश होतो.</p>
+            <h4>२. Application Security</h4>
+            <p>Software आणि Applications मधील Security Bugs आणि Vulnerabilities शोधून काढणे.</p>
+            <h4>३. Information Security</h4>
+            <p>Digital आणि Physical स्वरूपातील माहितीचे अनधिकृत प्रवेशापासून संरक्षण.</p>
+            <h4>४. End-point Security</h4>
+            <p>Laptops, Mobiles, Tablets सारख्या उपकरणांचे Malware पासून संरक्षण.</p>
+            <h3>सायबर सुरक्षेचे महत्त्व</h3>
+            <ul>
+                <li>वैयक्तिक माहिती (Passwords, Bank Details) चोरीपासून संरक्षण</li>
+                <li>व्यवसायाचा डेटा आणि बौद्धिक संपदा सुरक्षित ठेवणे</li>
+                <li>Ransomware सारख्या हल्ल्यांपासून बचाव</li>
+                <li>सरकारी आणि राष्ट्रीय पायाभूत सुविधांचे संरक्षण</li>
+            </ul>
+        `
+    },
+    2: {
+        title: "Firewall, IPS आणि IDS मधील फरक",
+        content: `
+            <h3>Firewall म्हणजे काय?</h3>
+            <p>Firewall हे एक Network Security Device आहे जे नेटवर्कमधील येणाऱ्या (Incoming) आणि जाणाऱ्या (Outgoing) Traffic चे निरीक्षण करते आणि पूर्वनिर्धारित Security Rules नुसार Traffic Allow किंवा Block करते. हे नेटवर्कचे पहिले संरक्षण कवच आहे.</p>
+            <h3>IDS (Intrusion Detection System)</h3>
+            <p>IDS हे एक Passive Security System आहे. हे नेटवर्कमधील Suspicious Activity शोधते आणि Administrator ला Alert पाठवते, परंतु स्वतःहून कोणतीही कारवाई करत नाही. IDS फक्त "पाहतो आणि सांगतो."</p>
+            <h3>IPS (Intrusion Prevention System)</h3>
+            <p>IPS हे एक Active Security System आहे. हे IDS प्रमाणे Threats शोधते, परंतु त्याचबरोबर त्या Threats ला Block देखील करते. IPS "पाहतो, सांगतो आणि थांबवतो."</p>
+            <h3>तुलनात्मक सारांश</h3>
+            <ul>
+                <li><strong>Firewall:</strong> Traffic Filter करतो — Rules नुसार Allow/Block</li>
+                <li><strong>IDS:</strong> Threats शोधतो — Alert पाठवतो (Passive)</li>
+                <li><strong>IPS:</strong> Threats शोधतो + थांबवतो — Action घेतो (Active)</li>
+            </ul>
+            <p>एका मजबूत नेटवर्क Security Architecture मध्ये या तिन्ही Layers एकत्र वापरल्या जातात.</p>
+        `
+    },
+    3: {
+        title: "डिजिटल युगातील सायबर धोके",
+        content: `
+            <h3>आधुनिक सायबर धोके</h3>
+            <p>डिजिटल तंत्रज्ञानाच्या वाढत्या वापराबरोबर सायबर धोके देखील अधिक प्रगत आणि धोकादायक झाले आहेत. आजच्या काळातील प्रमुख सायबर धोके खालीलप्रमाणे आहेत:</p>
+            <h4>Ransomware</h4>
+            <p>हे Malware वापरकर्त्याच्या Files Encrypt करते आणि त्या Decrypt करण्यासाठी पैसे (Ransom) मागते. WannaCry आणि Petya हे प्रसिद्ध Ransomware हल्ले आहेत.</p>
+            <h4>Phishing Attacks</h4>
+            <p>बनावट Emails किंवा Websites द्वारे वापरकर्त्याची संवेदनशील माहिती (Passwords, OTP, Bank Details) चोरण्याचा प्रयत्न.</p>
+            <h4>Social Engineering</h4>
+            <p>मानवी मनोविज्ञानाचा वापर करून व्यक्तींना फसवणे. यात Pretexting, Baiting, Vishing यांचा समावेश होतो.</p>
+            <h4>Zero-Day Exploits</h4>
+            <p>Software मधील अशा Vulnerabilities चा फायदा घेणे जे Developer ला अद्याप माहीत नसतात.</p>
+            <h3>संरक्षणाचे उपाय</h3>
+            <ul>
+                <li>Regular Software Updates आणि Patches</li>
+                <li>Multi-Factor Authentication (MFA) वापरणे</li>
+                <li>Regular Data Backup ठेवणे</li>
+                <li>Employees ना Cybersecurity Training देणे</li>
+                <li>Endpoint Security Solutions वापरणे</li>
+            </ul>
+        `
+    },
+    4: {
+        title: "नेटवर्किंग संपूर्ण माहिती",
+        content: `
+            <h3>नेटवर्किंग म्हणजे काय?</h3>
+            <p>दोन किंवा अधिक संगणकांना एकत्र जोडून त्यांच्यात डेटा शेअर करण्याच्या प्रक्रियेला नेटवर्किंग म्हणतात. आजच्या डिजिटल जगात नेटवर्किंग हा IT Infrastructure चा मूलभूत भाग आहे.</p>
+            <h3>नेटवर्कचे प्रमुख प्रकार</h3>
+            <h4>LAN (Local Area Network)</h4>
+            <p>एका इमारती किंवा Campus मध्ये जोडलेले नेटवर्क. High Speed आणि Low Latency हे याचे वैशिष्ट्य.</p>
+            <h4>WAN (Wide Area Network)</h4>
+            <p>भौगोलिकदृष्ट्या दूर असलेल्या ठिकाणांना जोडणारे नेटवर्क. Internet हे जगातील सर्वात मोठे WAN आहे.</p>
+            <h4>MAN (Metropolitan Area Network)</h4>
+            <p>एका शहराच्या किंवा Campus च्या पातळीवर जोडलेले नेटवर्क.</p>
+            <h3>महत्त्वाचे Networking Protocols</h3>
+            <ul>
+                <li><strong>TCP/IP:</strong> Internet चा पाया — Data Packets च्या Transmission चे नियमन</li>
+                <li><strong>DNS:</strong> Domain Names ला IP Addresses मध्ये रूपांतरित करणे</li>
+                <li><strong>DHCP:</strong> Network Devices ला Automatic IP Address देणे</li>
+                <li><strong>HTTP/HTTPS:</strong> Web Browsing साठी वापरला जाणारा Protocol</li>
+            </ul>
+        `
+    },
+    5: {
+        title: "ChatGPT म्हणजे काय?",
+        content: `
+            <h3>ChatGPT ची ओळख</h3>
+            <p>ChatGPT हे OpenAI ने विकसित केलेले एक Generative AI Tool आहे. GPT म्हणजे "Generative Pre-trained Transformer." हे Large Language Model (LLM) वर आधारित आहे आणि मानवी भाषेतील संवाद समजण्याची आणि प्रतिसाद देण्याची क्षमता त्याच्यात आहे.</p>
+            <h3>ChatGPT कसे काम करते?</h3>
+            <p>ChatGPT ला प्रचंड मोठ्या Text Data वर Train केले आहे. यात Books, Articles, Websites आणि इतर Digital Content चा समावेश आहे. Deep Learning आणि Transformer Architecture च्या मदतीने हे Model मानवी प्रश्नांना संदर्भानुसार उत्तरे देण्यास सक्षम आहे.</p>
+            <h3>व्यावहारिक उपयोग</h3>
+            <ul>
+                <li><strong>Content Writing:</strong> Blogs, Emails, Reports लिहिण्यास मदत</li>
+                <li><strong>Code Generation:</strong> Programming Code लिहिणे आणि Debug करणे</li>
+                <li><strong>Customer Support:</strong> 24/7 Automated Customer Service</li>
+                <li><strong>Language Translation:</strong> विविध भाषांमध्ये अनुवाद</li>
+                <li><strong>Education:</strong> Complex Concepts सोप्या भाषेत समजावून सांगणे</li>
+            </ul>
+            <h3>मर्यादा</h3>
+            <p>ChatGPT अत्यंत उपयुक्त असले तरी ते नेहमी अचूक नसते. Real-time Information नसणे, Hallucination (चुकीची माहिती देणे), आणि Bias या त्याच्या मुख्य मर्यादा आहेत.</p>
+        `
+    },
+    6: {
+        title: "संगणक हार्डवेअरचे मूलभूत घटक",
+        content: `
+            <h3>Processor (CPU)</h3>
+            <p>Central Processing Unit हा संगणकाचा मेंदू आहे. सर्व गणना आणि Instructions execute करण्याचे काम CPU करतो. Intel आणि AMD हे दोन प्रमुख CPU Manufacturers आहेत.</p>
+            <h3>Motherboard</h3>
+            <p>सर्व Hardware Components ला एकत्र जोडणारे Main Circuit Board. CPU, RAM, GPU, Storage सर्व Motherboard ला Connect होतात. Chipset हे Motherboard चे मुख्य अंग आहे.</p>
+            <h3>RAM (Random Access Memory)</h3>
+            <p>Currently Running Programs आणि Data तात्पुरते साठवण्यासाठी RAM वापरली जाते. RAM जास्त असेल तर Computer अधिक Programs एकाच वेळी सुरळीत चालवू शकतो.</p>
+            <h3>GPU (Graphics Processing Unit)</h3>
+            <p>Images, Videos आणि Graphics Render करण्यासाठी GPU वापरला जातो. Gaming, Video Editing आणि AI/ML साठी Powerful GPU आवश्यक असतो.</p>
+            <h3>BIOS/UEFI</h3>
+            <p>Computer Startup वेळी Hardware Initialize करण्यासाठी आणि Operating System Load करण्यासाठी BIOS/UEFI Firmware वापरले जाते.</p>
+        `
+    },
+    7: {
+        title: "संगणकाचा मेंदू: प्रोसेसर",
+        content: `
+            <h3>Processor कसे काम करते?</h3>
+            <p>Processor किंवा CPU (Central Processing Unit) हे Fetch-Decode-Execute Cycle नुसार काम करतो. प्रत्येक Instruction प्रथम Memory मधून Fetch केली जाते, नंतर Decode करून Execute केली जाते.</p>
+            <h3>Core आणि Thread</h3>
+            <p>आधुनिक Processors मध्ये अनेक Cores असतात. प्रत्येक Core स्वतंत्रपणे काम करू शकतो, त्यामुळे Multi-tasking सोपे होते. Hyper-threading तंत्रज्ञानामुळे प्रत्येक Core दोन Threads Handle करू शकतो.</p>
+            <h3>Clock Speed</h3>
+            <p>GHz मध्ये मोजली जाणारी Clock Speed Processor किती Operations per Second Execute करू शकतो हे सांगते. जास्त Clock Speed म्हणजे जलद Performance.</p>
+            <h3>कोणता Processor निवडावा?</h3>
+            <ul>
+                <li><strong>Office Work:</strong> Intel Core i3 / AMD Ryzen 3 पुरेसे</li>
+                <li><strong>Video Editing:</strong> Intel Core i7 / AMD Ryzen 7 किंवा वरील</li>
+                <li><strong>Gaming:</strong> Intel Core i5/i7 / AMD Ryzen 5/7 उत्तम</li>
+                <li><strong>Server/Workstation:</strong> Intel Xeon / AMD EPYC</li>
+            </ul>
+        `
+    },
+    8: {
+        title: "RAM म्हणजे काय?",
+        content: `
+            <h3>RAM ची ओळख</h3>
+            <p>RAM (Random Access Memory) ही Computer ची Short-term Memory आहे. सध्या वापरात असलेले Programs आणि Data RAM मध्ये साठवले जातात कारण CPU त्यांना Hard Disk पेक्षा RAM मधून खूप जलद Access करू शकतो.</p>
+            <h3>RAM आणि Storage मधील फरक</h3>
+            <p>RAM Volatile Memory आहे — Computer बंद केल्यावर त्यातील Data नाहीसा होतो. Storage (HDD/SSD) Non-Volatile आहे — Data कायमस्वरूपी साठवतो. RAM हे Temporary Workspace आहे तर Storage हे Permanent Cabinet आहे.</p>
+            <h3>RAM चे प्रकार</h3>
+            <ul>
+                <li><strong>DDR4:</strong> सध्या सर्वाधिक वापरला जाणारा Standard</li>
+                <li><strong>DDR5:</strong> नवीन Generation — जास्त Speed आणि Efficiency</li>
+                <li><strong>LPDDR:</strong> Laptops आणि Mobile Devices साठी Low Power Version</li>
+            </ul>
+            <h3>किती RAM आवश्यक?</h3>
+            <ul>
+                <li><strong>Basic Use:</strong> 8GB पुरेसे</li>
+                <li><strong>Multitasking/Gaming:</strong> 16GB शिफारसीय</li>
+                <li><strong>Video Editing/3D Rendering:</strong> 32GB किंवा अधिक</li>
+            </ul>
+        `
+    },
+    9: {
+        title: "HDD आणि SSD मधील फरक",
+        content: `
+            <h3>HDD (Hard Disk Drive)</h3>
+            <p>HDD मध्ये Magnetic Platters फिरवून Data Read/Write केला जातो. हे Mechanical Device आहे, त्यामुळे Moving Parts आहेत. HDD स्वस्त आहे आणि जास्त Storage देतो, परंतु Speed कमी असते.</p>
+            <h3>SSD (Solid State Drive)</h3>
+            <p>SSD मध्ये Flash Memory (NAND) वापरला जातो. कोणतेही Moving Parts नसल्यामुळे SSD खूप जलद, शांत आणि टिकाऊ असतो. Boot Time आणि Program Loading खूप कमी वेळात होते.</p>
+            <h3>Speed तुलना</h3>
+            <ul>
+                <li><strong>HDD Read/Write:</strong> ~80-160 MB/s</li>
+                <li><strong>SATA SSD:</strong> ~500-550 MB/s</li>
+                <li><strong>NVMe SSD:</strong> ~3000-7000 MB/s</li>
+            </ul>
+            <h3>कोणते निवडावे?</h3>
+            <p>OS आणि Programs साठी SSD वापरावे (जलद Boot आणि Performance). मोठ्या Files (Videos, Backups) साठी HDD किफायतशीर पर्याय आहे. Ideal Setup: SSD + HDD एकत्र वापरणे.</p>
+        `
+    },
+    10: {
+        title: "BIOS आणि UEFI मार्गदर्शन",
+        content: `
+            <h3>BIOS म्हणजे काय?</h3>
+            <p>BIOS (Basic Input/Output System) हे Motherboard वर असलेले Firmware आहे जे Computer Start होताना Hardware Initialize करते आणि Operating System Boot करते. हे ROM Chip वर साठवलेले असते.</p>
+            <h3>UEFI म्हणजे काय?</h3>
+            <p>UEFI (Unified Extensible Firmware Interface) हे BIOS चे आधुनिक आणि सुधारित रूप आहे. Graphical Interface, Mouse Support, Faster Boot, आणि 2.2TB पेक्षा जास्त Drive Support हे UEFI चे प्रमुख फायदे आहेत.</p>
+            <h3>BIOS vs UEFI मुख्य फरक</h3>
+            <ul>
+                <li><strong>Interface:</strong> BIOS — Text Only; UEFI — Graphical (Mouse Support)</li>
+                <li><strong>Boot Speed:</strong> UEFI जास्त जलद Boot करतो</li>
+                <li><strong>Drive Size:</strong> BIOS — 2.2TB Limit; UEFI — 9.4 ZB पर्यंत</li>
+                <li><strong>Security:</strong> UEFI मध्ये Secure Boot Feature आहे</li>
+                <li><strong>64-bit Support:</strong> UEFI मध्ये Native 64-bit Environment</li>
+            </ul>
+            <h3>Secure Boot</h3>
+            <p>UEFI मधील Secure Boot Feature केवळ Digitally Signed OS लोड होऊ देतो, ज्यामुळे Bootkit आणि Rootkit सारख्या Malware पासून संरक्षण मिळते.</p>
+        `
+    },
+    11: {
+        title: "Graphics Card म्हणजे काय?",
+        content: `
+            <h3>GPU म्हणजे काय?</h3>
+            <p>Graphics Processing Unit (GPU) हे एक Specialized Processor आहे जे Visual Data (Images, Videos, 3D Graphics) Render करण्यासाठी Optimized आहे. CPU मध्ये काही Cores असतात तर GPU मध्ये हजारो Small Cores असतात जे Parallel Processing करतात.</p>
+            <h3>Integrated vs Dedicated Graphics</h3>
+            <ul>
+                <li><strong>Integrated GPU:</strong> CPU मध्येच Built-in — Basic Tasks साठी पुरेसे, Gaming साठी नाही</li>
+                <li><strong>Dedicated GPU:</strong> स्वतंत्र Card — Gaming, Video Editing साठी आवश्यक</li>
+            </ul>
+            <h3>प्रमुख GPU Manufacturers</h3>
+            <ul>
+                <li><strong>NVIDIA:</strong> GeForce (Gaming) आणि Quadro/RTX (Professional)</li>
+                <li><strong>AMD:</strong> Radeon RX Series (Gaming) आणि Radeon Pro (Professional)</li>
+                <li><strong>Intel:</strong> Arc Series (Budget Gaming)</li>
+            </ul>
+            <h3>कोणत्या कामासाठी कोणता GPU?</h3>
+            <ul>
+                <li><strong>Basic Video Editing:</strong> NVIDIA GTX 1660 / AMD RX 6600</li>
+                <li><strong>Professional 3D/VFX:</strong> NVIDIA RTX 3080/4080</li>
+                <li><strong>AI/ML:</strong> NVIDIA RTX Series (CUDA Cores मुळे)</li>
+            </ul>
+        `
+    },
+    12: {
+        title: "SMPS म्हणजे काय?",
+        content: `
+            <h3>SMPS ची ओळख</h3>
+            <p>SMPS (Switched-Mode Power Supply) हे Computer च्या PSU (Power Supply Unit) चे आधुनिक रूप आहे. घरातील AC Current (220V) ला Computer Components साठी आवश्यक DC Current मध्ये रूपांतरित करण्याचे काम SMPS करतो.</p>
+            <h3>SMPS कोणते Voltage देतो?</h3>
+            <ul>
+                <li><strong>+12V:</strong> CPU, GPU, Fans साठी</li>
+                <li><strong>+5V:</strong> USB Ports, Storage Drives साठी</li>
+                <li><strong>+3.3V:</strong> RAM, Motherboard Chipset साठी</li>
+            </ul>
+            <h3>SMPS निवडताना काय पहावे?</h3>
+            <ul>
+                <li><strong>Wattage:</strong> PC च्या Total Power Consumption नुसार निवडावे (20% Buffer ठेवावा)</li>
+                <li><strong>Efficiency Rating:</strong> 80+ Bronze/Gold/Platinum — जास्त Efficient</li>
+                <li><strong>Modular vs Non-Modular:</strong> Modular SMPS Cable Management साठी चांगले</li>
+            </ul>
+            <h3>SMPS खराब झाल्याची लक्षणे</h3>
+            <p>Computer अचानक बंद होणे, Boot न होणे, Burning Smell येणे — ही SMPS Failure ची प्रमुख लक्षणे आहेत. SMPS खराब झाल्यास इतर Components ला नुकसान होऊ शकते, त्यामुळे वेळेत बदलणे गरजेचे आहे.</p>
+        `
+    },
+    13: {
+        title: "संगणक दुरुस्ती Step-by-Step",
+        content: `
+            <h3>Computer Hang होत असल्यास</h3>
+            <ul>
+                <li>Task Manager उघडा (Ctrl+Shift+Esc) आणि High CPU/Memory वापरणारे Programs बंद करा</li>
+                <li>RAM वाढवण्याचा विचार करा</li>
+                <li>Startup Programs कमी करा</li>
+                <li>SSD Install केल्यास Performance सुधारेल</li>
+            </ul>
+            <h3>Computer सुरू न झाल्यास</h3>
+            <ul>
+                <li>Power Cable योग्य जोडलेले आहे का तपासा</li>
+                <li>RAM Slot मधून काढून पुन्हा घाला</li>
+                <li>CMOS Battery बदला (बऱ्याचदा Motherboard Reset होतो)</li>
+                <li>POST Beep Code ऐकून Error ओळखा</li>
+            </ul>
+            <h3>Slow Performance साठी</h3>
+            <ul>
+                <li>Disk Cleanup चालवा</li>
+                <li>Antivirus Scan करा</li>
+                <li>Windows Update करा</li>
+                <li>Unnecessary Software Uninstall करा</li>
+                <li>HDD असल्यास SSD वर Upgrade करा</li>
+            </ul>
+            <h3>Blue Screen of Death (BSOD)</h3>
+            <p>Error Code नोंद करा. Driver Update करा. RAM आणि Storage Health तपासा. Windows Repair Tool वापरा.</p>
+        `
+    },
+    14: {
+        title: "प्रोग्रामिंग म्हणजे काय?",
+        content: `
+            <h3>Programming ची ओळख</h3>
+            <p>Programming म्हणजे Computer ला विशिष्ट कामे करण्यासाठी Instructions देण्याची प्रक्रिया. या Instructions एका विशिष्ट Programming Language मध्ये लिहिल्या जातात आणि त्यांना Code म्हणतात.</p>
+            <h3>Programming कशी काम करते?</h3>
+            <p>Human लिखित Code → Compiler/Interpreter → Machine Language (0s and 1s) → CPU Execute करतो → Output. Computer फक्त Binary (0 आणि 1) समजतो, त्यामुळे Programming Languages हे Human आणि Machine मधील सेतू आहेत.</p>
+            <h3>लोकप्रिय Programming Languages</h3>
+            <ul>
+                <li><strong>Python:</strong> AI/ML, Data Science, Automation साठी सर्वोत्तम</li>
+                <li><strong>JavaScript:</strong> Web Development साठी आवश्यक</li>
+                <li><strong>Java:</strong> Enterprise Applications आणि Android Development</li>
+                <li><strong>C/C++:</strong> System Programming आणि Game Development</li>
+                <li><strong>SQL:</strong> Database Management साठी</li>
+            </ul>
+            <h3>Programming शिकण्याचे फायदे</h3>
+            <p>Problem-solving Skills सुधारतात, Repetitive Tasks Automate करता येतात, Software तयार करता येते, आणि IT Sector मध्ये उत्तम करिअर संधी मिळतात.</p>
+        `
+    },
+    15: {
+        title: "कम्प्युटर आणि मनुष्य संवाद",
+        content: `
+            <h3>Machine Language</h3>
+            <p>Computer केवळ Binary Language (0 आणि 1) समजतो. प्रत्येक Instruction Binary Code मध्ये असतो. उदाहरणार्थ, 01000001 म्हणजे 'A' अक्षर. हे थेट लिहिणे मनुष्यासाठी अत्यंत कठीण आहे.</p>
+            <h3>Assembly Language</h3>
+            <p>Binary Code पेक्षा थोडे समजण्यास सोपे, परंतु तरीही Low-level. MOV, ADD, SUB सारखे Mnemonics वापरले जातात. Assembler हे Assembly Code ला Machine Code मध्ये रूपांतरित करतो.</p>
+            <h3>High-Level Languages</h3>
+            <p>Python, Java, C++ सारख्या Languages मनुष्याला समजण्यास सोप्या आहेत. Compiler किंवा Interpreter हे High-level Code ला Machine Code मध्ये रूपांतरित करतात.</p>
+            <h3>Operating System ची भूमिका</h3>
+            <p>OS हे Hardware आणि Software यांच्यातील दुवा आहे. Memory Management, Process Scheduling, File System Management, Device Driver Management ही OS ची मुख्य कामे आहेत. Windows, Linux, macOS हे प्रमुख OS आहेत.</p>
+        `
+    },
+    16: {
+        title: "Software आणि Hardware काय आहे?",
+        content: `
+            <h3>Hardware म्हणजे काय?</h3>
+            <p>Hardware म्हणजे Computer चे ते Physical Components जे आपण पाहू आणि स्पर्श करू शकतो. CPU, RAM, Hard Disk, Monitor, Keyboard, Mouse — हे सर्व Hardware आहे. Hardware शिवाय Computer काहीच करू शकत नाही.</p>
+            <h3>Software म्हणजे काय?</h3>
+            <p>Software म्हणजे Programs आणि Instructions चा संच जो Hardware ला काय करायचे ते सांगतो. Software अदृश्य असतो — तुम्ही त्याला पाहू शकता पण स्पर्श करू शकत नाही.</p>
+            <h3>Software चे प्रकार</h3>
+            <ul>
+                <li><strong>System Software:</strong> Operating System (Windows, Linux) — Hardware Manage करतो</li>
+                <li><strong>Application Software:</strong> MS Office, Photoshop, Browser — User Tasks साठी</li>
+                <li><strong>Utility Software:</strong> Antivirus, Disk Cleaner — System Maintenance साठी</li>
+                <li><strong>Firmware:</strong> BIOS/UEFI — Hardware मध्येच Built-in Software</li>
+            </ul>
+            <h3>Hardware आणि Software यांचे नाते</h3>
+            <p>Hardware हे Body आहे आणि Software हे Mind आहे. दोन्हीशिवाय Computer काम करत नाही. तुम्ही YouTube उघडता — Browser (Software) → GPU (Hardware) → Display (Hardware) — अशा प्रकारे दोन्ही एकत्र काम करतात.</p>
+        `
+    },
+    17: {
+        title: "संगणकाची मूलभूत माहिती",
+        content: `
+            <h3>संगणकाचा शोध</h3>
+            <p>पहिला Electronic Computer "ENIAC" (Electronic Numerical Integrator and Computer) 1945 मध्ये तयार केला गेला. तो एका खोलीएवढा मोठा होता! Charles Babbage यांना "Father of Computer" म्हटले जाते कारण त्यांनी 19व्या शतकात Analytical Engine ची संकल्पना मांडली होती.</p>
+            <h3>संगणकाची पिढ्या</h3>
+            <ul>
+                <li><strong>1st Gen (1940-56):</strong> Vacuum Tubes — मोठे आणि महाग</li>
+                <li><strong>2nd Gen (1956-63):</strong> Transistors — लहान आणि जलद</li>
+                <li><strong>3rd Gen (1964-71):</strong> Integrated Circuits — आणखी लहान</li>
+                <li><strong>4th Gen (1971-पुढे):</strong> Microprocessors — Desktop Computers</li>
+                <li><strong>5th Gen (सध्या):</strong> AI आणि Quantum Computing</li>
+            </ul>
+            <h3>आधुनिक जीवनात संगणकाची भूमिका</h3>
+            <p>Education, Healthcare, Banking, Communication, Entertainment, Space Exploration — जीवनाच्या प्रत्येक क्षेत्रात Computer अपरिहार्य बनला आहे. आजचे Smartphones देखील 1969 च्या Moon Mission साठी वापरलेल्या Computers पेक्षा लाखो पट शक्तिशाली आहेत!</p>
+        `
+    },
+    18: {
+        title: "ANS मंचावर आपले स्वागत",
+        content: `
+            <h3>ANS Technology बद्दल</h3>
+            <p>ANS Technology हे एक IT Community Platform आहे जे तंत्रज्ञान क्षेत्रातील ज्ञान मराठी भाषेत उपलब्ध करून देण्यासाठी समर्पित आहे. आमचे ध्येय आहे की महाराष्ट्रातील प्रत्येक व्यक्तीला IT ची माहिती आपल्या मातृभाषेत मिळावी.</p>
+            <h3>आमचे उद्दिष्ट</h3>
+            <ul>
+                <li>Cyber Security, Networking, Hardware, Programming बद्दल सोप्या मराठीत माहिती</li>
+                <li>IT Career साठी मार्गदर्शन</li>
+                <li>Real-world IT Problems च्या Solutions</li>
+                <li>Community Learning आणि Knowledge Sharing</li>
+            </ul>
+            <h3>Saurabh Patil (ANS) बद्दल</h3>
+            <p>८+ वर्षांचा IT Infrastructure आणि Cyber Security चा अनुभव. मुंबईत कार्यरत असलेले IT Specialist जे VAPT (Vulnerability Assessment and Penetration Testing), Network Administration आणि IT Asset Management मध्ये तज्ज्ञ आहेत.</p>
+            <h3>संपर्क</h3>
+            <p>📧 ans.saurabhpatil@gmail.com | 🔗 linkedin.com/in/anssaurabhpatil</p>
+            <p>तुमचे ANS Technology वर मनःपूर्वक स्वागत आहे! एकत्र शिकूया, एकत्र वाढूया. 🚀</p>
+        `
+    }
+};
+
+function openBlog(id) {
+    const blog = blogs[id];
+    if (!blog) return;
+    document.getElementById('modalTitle').textContent = blog.title;
+    document.getElementById('modalContent').innerHTML = blog.content;
+    document.getElementById('blogModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeBlog();
+});
+</script>
+
+</body>
+</html>
