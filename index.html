@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANS Technology | Systems & Cyber Security Portfolio</title>
+
+    <meta id="ogTitle" property="og:title" content="ANS Technology | Systems & Cyber Security Portfolio">
+    <meta id="ogDesc" property="og:description" content="८+ वर्षांचा IT Infrastructure आणि Cyber Security चा अनुभव — Projects, Blogs आणि अधिक.">
+    <meta id="ogUrl" property="og:url" content="https://anstechnology.in/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -325,6 +332,41 @@
         }
         .blog-link:hover { gap: 8px; }
 
+        .blog-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .share-btn {
+            background: var(--blue-dim);
+            border: 1px solid var(--blue-border);
+            color: var(--blue);
+            width: 30px; height: 30px;
+            border-radius: 7px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .share-btn:hover { background: var(--blue); color: #fff; }
+
+        .modal-share-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .modal-share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--blue-dim);
+            border: 1px solid var(--blue-border);
+            color: var(--text);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .modal-share-btn:hover { border-color: var(--blue); }
+        .modal-share-btn.copied { background: var(--green); color: #050c18; border-color: var(--green); }
+
         /* ── CONTACT ── */
         .contact-wrap {
             display: grid;
@@ -475,7 +517,7 @@
 
 <!-- ── HEADER ── -->
 <header>
-    <a href="#home" class="logo">ANS<span>.</span>TECH</a>
+    <a href="#home" class="logo">ANS<span>TECHNOLOGY</span></a>
 
     <nav id="main-nav">
         <a href="#home" onclick="closeMenu()">होम</a>
@@ -734,6 +776,7 @@ function handleModalClick(e) {
 function closeBlog() {
     document.getElementById('blogModal').classList.remove('open');
     document.body.style.overflow = '';
+    history.replaceState(null, '', window.location.pathname);
 }
 
 const blogs = {
@@ -1097,10 +1140,72 @@ function openBlog(id) {
     const blog = blogs[id];
     if (!blog) return;
     document.getElementById('modalTitle').textContent = blog.title;
-    document.getElementById('modalContent').innerHTML = blog.content;
+
+    const shareUrl = window.location.origin + window.location.pathname + '#blog' + id;
+    const waText = encodeURIComponent(blog.title + ' - ' + shareUrl);
+
+    const shareRow = `
+        <div class="modal-share-row">
+            <a class="modal-share-btn" href="https://wa.me/?text=${waText}" target="_blank" rel="noopener">📲 WhatsApp वर पाठवा</a>
+            <button class="modal-share-btn" onclick="copyBlogLink(${id}, this)">🔗 Link Copy करा</button>
+        </div>
+    `;
+
+    document.getElementById('modalContent').innerHTML = shareRow + blog.content;
     document.getElementById('blogModal').classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    history.replaceState(null, '', '#blog' + id);
+
+    document.title = blog.title + ' | ANS Technology';
+    document.getElementById('ogTitle').setAttribute('content', blog.title + ' | ANS Technology');
+    document.getElementById('ogUrl').setAttribute('content', shareUrl);
 }
+
+function copyBlogLink(id, btn) {
+    const shareUrl = window.location.origin + window.location.pathname + '#blog' + id;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        const original = btn.textContent;
+        btn.textContent = '✅ Copy झाले!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 2000);
+    });
+}
+
+// ── Auto-add share icon to every blog card ──
+document.querySelectorAll('.blog-card').forEach(card => {
+    const match = card.getAttribute('onclick').match(/openBlog\((\d+)\)/);
+    if (!match) return;
+    const id = match[1];
+    const readBtn = card.querySelector('.blog-link');
+    if (!readBtn) return;
+
+    const footer = document.createElement('div');
+    footer.className = 'blog-card-footer';
+
+    readBtn.parentNode.insertBefore(footer, readBtn);
+    footer.appendChild(readBtn);
+
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'share-btn';
+    shareBtn.textContent = '🔗';
+    shareBtn.title = 'Share';
+    shareBtn.onclick = function(e) {
+        e.stopPropagation();
+        openBlog(id);
+    };
+    footer.appendChild(shareBtn);
+});
+
+// ── Open blog directly if URL has #blogN ──
+function checkHashOnLoad() {
+    const hash = window.location.hash;
+    const match = hash.match(/^#blog(\d+)$/);
+    if (match) {
+        setTimeout(() => openBlog(match[1]), 100);
+    }
+}
+window.addEventListener('load', checkHashOnLoad);
 
 // Close on Escape key
 document.addEventListener('keydown', function(e) {
